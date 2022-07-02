@@ -1,4 +1,5 @@
 import discord, random
+from discord.utils import get
 intents = discord.Intents.default()
 intents.message_content = True
 client = discord.Client(intents=intents)
@@ -6,14 +7,15 @@ client = discord.Client(intents=intents)
 async def on_message(message):
     if message.author == client.user:
         return
+    role = discord.utils.get(message.guild.roles, id=991009276946419714)
+    if not role in message.author.roles:return
     words=["素晴らしい", "素晴らしいな", "素晴らしい:clap:", "素晴らしいな:clap:"]
-    if message.content.endswith("素晴らしいな"):
+    if ("素晴らしいな") in message.content:    
         await message.channel.send(random.choice(words))
-    elif message.content.endswith("素晴らしい"):
+    elif ("素晴らしい") in message.content:
         await message.channel.send(random.choice(words))
-    elif message.content.endswith("👏"):
+    elif ("👏") in message.content:
         await message.channel.send(random.choice(words))
-    if message.content.endswith("すばらしい"):
+    elif ("すばらしい") in message.content:
         await message.channel.send(random.choice(words))
-
 client.run("TOKEN")
